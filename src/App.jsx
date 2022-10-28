@@ -2,7 +2,7 @@ import "./App.css";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import paperImg from "./assets/paper.png";
-import therockImg from "./assets/therock.png";
+import rockImg from "./assets/therock.png";
 import scissorsImg from "./assets/scissors.png";
 
 const imgVariants = {
@@ -17,10 +17,74 @@ const imgVariants = {
   },
 };
 
+function PlayerChoices({ showImg, setShowImg, battleIsOn }) {
+  return (
+    <>
+      <div className="rock-choice">
+        <motion.img
+          src={rockImg}
+          className="img"
+          variants={imgVariants}
+          initial={showImg === "hidden" ? "hidden" : false}
+          animate={showImg === "shownrock" ? "shown" : "hidden"}
+          onAnimationComplete={() => setShowImg("hidden")}
+        />
+        <motion.button
+          onClick={battleIsOn}
+          value="rock"
+          className="button"
+          whileHover={{ backgroundColor: "palevioletred", scale: 1.1 }}
+          whileTap={{ backgroundColor: "darkgray" }}
+        >
+          Rock
+        </motion.button>
+      </div>
+      <div className="paper-choice">
+        <motion.img
+          src={paperImg}
+          className="img"
+          variants={imgVariants}
+          initial={showImg === "hidden" ? "hidden" : false}
+          animate={showImg === "shownpaper" ? "shown" : "hidden"}
+          onAnimationComplete={() => setShowImg("hidden")}
+        />
+        <motion.button
+          onClick={battleIsOn}
+          value="paper"
+          className="button"
+          whileHover={{ backgroundColor: "palevioletred", scale: 1.1 }}
+          whileTap={{ backgroundColor: "lightgray" }}
+        >
+          Paper
+        </motion.button>
+      </div>
+      <div className="scissors-choice">
+        <motion.img
+          src={scissorsImg}
+          className="img"
+          variants={imgVariants}
+          initial={showImg === "hidden" ? "hidden" : false}
+          animate={showImg === "shownscissors" ? "shown" : "hidden"}
+          onAnimationComplete={() => setShowImg("hidden")}
+        />
+        <motion.button
+          onClick={battleIsOn}
+          value="scissors"
+          className="button"
+          whileHover={{ backgroundColor: "palevioletred", scale: 1.1 }}
+          whileTap={{ backgroundColor: "lightblue" }}
+        >
+          Scissors
+        </motion.button>
+      </div>
+    </>
+  );
+}
+
 function App() {
   const [result, setResult] = useState("");
   const [rivalChoice, setRivalChoice] = useState("");
-  const rivalArray = ["rock", "paper", "scissors"];
+  const choicesArray = ["rock", "paper", "scissors"];
   const [playersChoice, setPlayersChoice] = useState("");
   const [showImg, setShowImg] = useState("hidden");
 
@@ -57,11 +121,11 @@ function App() {
   const battleIsOn = (ev) => {
     let yourChoice = ev.target.value;
     setPlayersChoice(yourChoice);
-    setRivalChoice(rivalArray[Math.floor(Math.random() * rivalArray.length)]);
+    setRivalChoice(
+      choicesArray[Math.floor(Math.random() * choicesArray.length)]
+    );
     setShowImg(`shown${yourChoice}`);
   };
-
-  console.log(showImg);
 
   return (
     <div className="App">
@@ -69,63 +133,12 @@ function App() {
         Let's play!
       </a>
       <div className="player-choices">
-        <div className="rock-choice">
-          <motion.img
-            src={therockImg}
-            className="img"
-            variants={imgVariants}
-            initial={showImg === "hidden" ? "hidden" : false}
-            animate={showImg === "shownrock" ? "shown" : "hidden"}
-            onAnimationComplete={() => setShowImg("hidden")}
-          />
-          <motion.button
-            onClick={battleIsOn}
-            value="rock"
-            className="button"
-            whileHover={{ backgroundColor: "palevioletred", scale: 1.1 }}
-            whileTap={{ backgroundColor: "darkgray" }}
-          >
-            Rock
-          </motion.button>
-        </div>
-        <div className="paper-choice">
-          <motion.img
-            src={paperImg}
-            className="img"
-            variants={imgVariants}
-            initial={showImg === "hidden" ? "hidden" : false}
-            animate={showImg === "shownpaper" ? "shown" : "hidden"}
-            onAnimationComplete={() => setShowImg("hidden")}
-          />
-          <motion.button
-            onClick={battleIsOn}
-            value="paper"
-            className="button"
-            whileHover={{ backgroundColor: "palevioletred", scale: 1.1 }}
-            whileTap={{ backgroundColor: "lightgray" }}
-          >
-            Paper
-          </motion.button>
-        </div>
-        <div className="scissors-choice">
-          <motion.img
-            src={scissorsImg}
-            className="img"
-            variants={imgVariants}
-            initial={showImg === "hidden" ? "hidden" : false}
-            animate={showImg === "shownscissors" ? "shown" : "hidden"}
-            onAnimationComplete={() => setShowImg("hidden")}
-          />
-          <motion.button
-            onClick={battleIsOn}
-            value="scissors"
-            className="button"
-            whileHover={{ backgroundColor: "palevioletred", scale: 1.1 }}
-            whileTap={{ backgroundColor: "lightblue" }}
-          >
-            Scissors
-          </motion.button>
-        </div>
+        <PlayerChoices
+          showImg={showImg}
+          setShowImg={setShowImg}
+          battleIsOn={battleIsOn}
+          choicesArray={choicesArray}
+        />
       </div>
       <div className="battlefield">
         <p className="rival-choice">
