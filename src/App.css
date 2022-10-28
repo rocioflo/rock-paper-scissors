@@ -26,9 +26,19 @@
     flex-direction: column;
 }
 
+.paper-choice {
+    display: flex;
+    flex-direction: column;
+}
+
+.scissors-choice {
+    display: flex;
+    flex-direction: column;
+}
+
 .img {
     max-height: 3rem;
-    display: none;
+    z-index: -1;
 }
 
 
@@ -39,10 +49,6 @@
     border: none;
     background-color: pink;
     cursor: pointer;
-}
-
-.button:hover {
-    background-color: palevioletred;
 }
 
 .rival-choice {
