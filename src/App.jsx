@@ -1,6 +1,9 @@
 import "./App.css";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import paperImg from "./assets/paper.png";
+import therockImg from "./assets/therock.png";
+import scissorsImg from "./assets/scissors.png";
 
 const imgVariants = {
   hidden: {
@@ -68,7 +71,7 @@ function App() {
       <div className="player-choices">
         <div className="rock-choice">
           <motion.img
-            src="./src/assets/therock.png"
+            src={therockImg}
             className="img"
             variants={imgVariants}
             initial={showImg === "hidden" ? "hidden" : false}
@@ -87,7 +90,7 @@ function App() {
         </div>
         <div className="paper-choice">
           <motion.img
-            src="./src/assets/paper.png"
+            src={paperImg}
             className="img"
             variants={imgVariants}
             initial={showImg === "hidden" ? "hidden" : false}
@@ -106,7 +109,7 @@ function App() {
         </div>
         <div className="scissors-choice">
           <motion.img
-            src="./src/assets/scissors.png"
+            src={scissorsImg}
             className="img"
             variants={imgVariants}
             initial={showImg === "hidden" ? "hidden" : false}
